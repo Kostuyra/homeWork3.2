@@ -2,12 +2,11 @@ package ru.hogwarts.school.Constants;
 
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-
 import java.util.List;
 
 
 public class Constants {
-    public static final Student STUDENT0 = new Student(0L, "Name1", 20);
+
     public static final Student STUDENT1 = new Student(1L, "Name1", 20);
     public static final Student STUDENT2 = new Student(2L, "Name2", 19);
     public static final Student STUDENT3 = new Student(3L, "Name3", 20);
@@ -17,7 +16,7 @@ public class Constants {
     public static final List<Student> ALLSTUDENTS = List.of(STUDENT1, STUDENT2,STUDENT3, STUDENT4);
     public static final List<Student> STUDENT_LIST = List.of(STUDENT1, STUDENT3);
 
-    public static final Faculty FACULTY0 = new Faculty(0L, "FacultyName1", "White");
+
     public static final Faculty FACULTY1 = new Faculty(1L, "FacultyName1", "White");
     public static final Faculty FACULTY2 = new Faculty(2L, "FacultyName2", "Red");
     public static final Faculty FACULTY3 = new Faculty(3L, "FacultyName3", "White");
@@ -25,4 +24,5 @@ public class Constants {
     public static final Faculty UPDATEFACULTY = new Faculty(1L, "NewName", "Blue");
     public static final List<Faculty> FACULTY_LIST = List.of(FACULTY1, FACULTY3);
     public static final List<Faculty> ALLFACULTIES = List.of(FACULTY1, FACULTY2,FACULTY3, FACULTY4);
+
 }
