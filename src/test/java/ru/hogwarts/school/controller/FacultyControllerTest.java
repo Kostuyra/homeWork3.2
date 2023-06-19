@@ -1,59 +1,63 @@
 package ru.hogwarts.school.controller;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.hogwarts.school.Constants.Constants.*;
 
+@ExtendWith(MockitoExtension.class)
 class FacultyControllerTest {
-private final FacultyService out = new FacultyService();
+    @Mock
+    private FacultyRepository facultyRepository;
+    @InjectMocks
+    private FacultyService out;
+
     @Test
     void createFaculty() {
-        assertEquals(FACULTY1, out.createFaculty(FACULTY0));
+        Mockito.when(facultyRepository.save(FACULTY1)).thenReturn(FACULTY1);
+        Faculty test = out.createFaculty(FACULTY1);
+        assertEquals(FACULTY1, test);
     }
 
     @Test
     void getFaculty() {
-        out.createFaculty(FACULTY1);
-        out.createFaculty(FACULTY2);
-        out.createFaculty(FACULTY3);
-        out.createFaculty(FACULTY4);
+        Mockito.when(facultyRepository.findById(2L)).thenReturn(Optional.of(FACULTY2));
         assertEquals(FACULTY2, out.getFaculty(2));
     }
 
     @Test
     void updateFaculty() {
-        out.createFaculty(FACULTY1);
-        out.createFaculty(FACULTY2);
-        out.createFaculty(FACULTY3);
-        out.createFaculty(FACULTY4);
+        Mockito.when(facultyRepository.findById(2L)).thenReturn(Optional.of(FACULTY2));
+        assertEquals(FACULTY2, out.getFaculty(2));
         assertEquals(UPDATEFACULTY, out.updateFaculty(UPDATEFACULTY));
     }
 
     @Test
     void deleteFaculty() {
-        out.createFaculty(FACULTY1);
-        out.createFaculty(FACULTY2);
-        out.createFaculty(FACULTY3);
-        out.createFaculty(FACULTY4);
+        Mockito.when(facultyRepository.findById(3L)).thenReturn(Optional.of(FACULTY3));
+        assertEquals(FACULTY3, out.getFaculty(3));
         assertEquals(FACULTY3, out.deleteFaculty(3));
     }
 
     @Test
     void getFacultiesByColor() {
-        out.createFaculty(FACULTY1);
-        out.createFaculty(FACULTY2);
-        out.createFaculty(FACULTY3);
-        out.createFaculty(FACULTY4);
+        Mockito.when(facultyRepository.findFacultiesByColor("White")).thenReturn(FACULTY_LIST);
         assertEquals(FACULTY_LIST, out.filterFacultiesAtColor("White"));
     }
+
     @Test
-    void allFaculties(){
-        out.createFaculty(FACULTY1);
-        out.createFaculty(FACULTY2);
-        out.createFaculty(FACULTY3);
-        out.createFaculty(FACULTY4);
+    void allFaculties() {
+        Mockito.when(facultyRepository.findAll()).thenReturn(ALLFACULTIES);
         assertEquals(ALLFACULTIES, out.getAll());
     }
 }
